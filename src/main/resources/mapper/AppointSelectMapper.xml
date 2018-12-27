@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mwz.demo.sharebooks.dao.AppointSelectDao">
+    <select id="appointSelect" resultType="HashMap"  parameterType="HashMap">
+       select i.imgname imgname, i.itemsname,DATE_FORMAT(date_add(a.appointTime, interval 30 day) ,
+        '%Y年%m月%d日 %H:%i:%s') returntime,datediff((date_add(a.appointTime, interval 30 day)),now())
+        remainingtime  from items i left join appointment a on i.iditems = a.imgId  where a.userId=#{userid} and a.status = 3;</select>
+</mapper>

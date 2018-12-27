@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mwz.demo.sharebooks.dao.MymessageDao">
+    <select id="myMessageSelect" resultType="java.util.HashMap" parameterType="HashMap">
+        select *, DATE_FORMAT(comments.com_datatime, '%Y年%m月%d日 %H:%i:%s') comstime from comments left join users on
+         comments.com_userid = users.idusers where users.usersname =#{usersname} order by comments.com_datatime desc
+    </select>
+    <select id="appointsMessage" parameterType="HashMap" resultType="HashMap">
+        select appointment.status,items.imgname from users left join appointment on users.idusers=appointment.userId
+        left join items on items.iditems=appointment.imgId where users.usersname = #{usersname}
+    </select>
+
+    <select id="returnMessage" parameterType="HashMap"  resultType="HashMap">
+         select * from appointment left join users on appointment.userId=users.idusers left join items on
+         appointment.imgId = items.iditems where appointuname= #{appointuname}
+    </select>
+</mapper>

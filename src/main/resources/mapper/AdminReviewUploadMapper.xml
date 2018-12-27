@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mwz.demo.sharebooks.dao.AdminReviewUploadDao">
+    <select id="reviewUpload" resultType="HashMap" parameterType="HashMap">
+        SELECT a.iditems,a.itemsname,a.spenumber, s.speciesname, DATE_FORMAT(a.itemsdowntime, '%Y年%m月%d日 %H:%i:%s') itemsdowntime,a.itemsdowntime itemsdowntime1,a.username,a.itemsintroduction,a.imgname
+        FROM adminItems a left join species s on a.spenumber = s.idspecies where  a.adminStatus = 0;
+    </select>
+
+    <update id="reviewInsert" parameterType="HashMap"  >
+        UPDATE adminItems SET adminStatus='1' WHERE iditems=#{iditems};
+    </update>
+
+    <insert id="adminItemsInsert" parameterType="com.mwz.demo.sharebooks.entity.ItemsSelect">
+    INSERT INTO items (itemsname, spenumber, itemsdowntime, username,itemsintroduction, state, imgname)
+    VALUES ( #{itemsname}, #{spenumber}, #{itemsdowntime}, #{username}, #{itemsintroduction}, '0', #{imgname});
+    </insert>
+
+    <update id="onReviewUpload" parameterType="HashMap">
+        UPDATE adminItems SET adminStatus='2' WHERE iditems=#{iditems};
+    </update>
+</mapper>

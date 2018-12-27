@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mwz.demo.sharebooks.dao.OwnSelectDao">
+
+    <select id="ownSelect" resultType="java.util.HashMap" parameterType="String" >
+        select u.idusers,u.usersname username,  u.userspwd,u.users_email,u.users_tel ,u.usersStudentId from users u where u.usersname=#{usersname};
+    </select>
+</mapper>

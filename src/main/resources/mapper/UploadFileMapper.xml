@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mwz.demo.sharebooks.dao.UploadFileDao">
+    <insert id="uploadFile"  parameterType="HashMap">
+        INSERT INTO adminItems (itemsname, spenumber, itemsdowntime,username, itemsintroduction, state, imgname, adminStatus)
+         VALUES ( #{itemsname}, #{spenumber}, now(), #{username}, #{itemsintroduction}, '0', #{imageurl}, '0');
+    </insert>
+
+    <select id="selectImgid" parameterType="HashMap" resultType="HashMap">
+        select speciesnumber from species where imgname = #{imgname};
+    </select>
+</mapper>

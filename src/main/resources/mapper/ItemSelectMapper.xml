@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mwz.demo.sharebooks.dao.ItemsSelectDao">
+    <resultMap id="ItemsSelect" type="com.mwz.demo.sharebooks.dao.ItemsSelectDao">
+    <id property="iditems " column="iditems"></id>
+        <result property="itemsname" column="itemsname" />
+        <result property="spenumber " column="spenumber" />
+        <result property="itemsdowntime " column="itemsdowntime" />
+        <result property="itemsuptime " column="itemsuptime"/>
+        <result property="username " column="username" />
+        <result property="itemsintroduction " column="itemsintroduction" />
+        <result property="state " column="state" />
+        <result property="imgname " column="imgname"/>
+    </resultMap>
+
+
+    <select id="itemsSelect" resultType="java.util.HashMap"  parameterType="String">
+              SELECT * FROM species left join items  on  species.speciesnumber = items.spenumber
+               where items.itemsname = #{itemsname} order by items.iditems;
+    </select>
+</mapper>

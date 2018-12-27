@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mwz.demo.sharebooks.dao.AdminInterfaceDao">
+
+    <select id="adminInterfaceSelect" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+    SELECT species.speciesname name,count(items.spenumber) value FROM items left join
+    species on items.spenumber = species.idspecies group by species.speciesname;
+    </select>
+    <select id="userSelect" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        select u.idusers id, u.usersname name, u.users_email email, u.users_tel tel, u.usersStudentId studentID from users u;
+    </select>
+
+    <insert id="addUsers" parameterType="com.mwz.demo.sharebooks.entity.Users" >
+    INSERT INTO users (usersname, userspwd, users_email, users_tel, usersStudentId) VALUES
+     (#{usersname}, '123456', #{users_email}, #{users_tel}, #{usersStudentId});
+    </insert>
+
+    <update id="updateUserpwd" parameterType="Int">
+        UPDATE users SET userspwd='123456' WHERE idusers=#{idusers};
+    </update>
+
+    <delete id="deleteUsers" parameterType="Int">
+        delete from users where idusers=#{idusers}
+    </delete>
+    <select id="adminInterSelect" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        select  s.speciesname name, count(a.imgId) value from appointment a left join species s
+        on a.imgId=s.speciesnumber group by s.speciesname
+    </select>
+</mapper>

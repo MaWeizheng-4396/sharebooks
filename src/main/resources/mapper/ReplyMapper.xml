@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mwz.demo.sharebooks.dao.ReplyDao">
+    <!--评论-->
+    <insert id="ReplyInsert" parameterType="com.mwz.demo.sharebooks.entity.Reply" >
+        INSERT INTO reply ( replyStatus, rep_usersid, rep_id, com_datatime) VALUES ( #{replyStatus}, #{rep_usersid}, #{rep_id}, now());
+    </insert>
+    <!--查询评论-->
+    <!--<select id="commentsSelect" resultType="java.util.HashMap" parameterType="String">-->
+      <!--SELECT comments.id,comments.com_status,comments.com_userid,comments.com_datatime, comments.com_speciesid,-->
+      <!--users.usersname FROM sharebooks.comments left join users on comments.com_userid = users.idusers-->
+       <!--where com_speciesid = #{com_speciesid}  order by comments.com_datatime desc;</select>-->
+</mapper>
+
+
+

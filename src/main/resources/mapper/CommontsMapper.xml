@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mwz.demo.sharebooks.dao.CommentsDao">
+<!--评论-->
+        <insert id="CommontsInsert" parameterType="com.mwz.demo.sharebooks.entity.Commonts" >
+                INSERT INTO comments (com_status, com_userid, com_speciesid, com_datatime) VALUES (#{com_status},#{com_userid},#{com_speciesid}, now());
+        </insert>
+<!--查询评论和回复-->
+        <select id="commentsSelect" resultType="java.util.HashMap" parameterType="HashMap">
+       select * from (select *, DATE_FORMAT(comments.com_datatime, '%Y年%m月%d日 %H:%i:%s') comtime from comments left join users on comments.com_userid =users.idusers) c
+  left join (select reply.id repid,reply.rep_id rep_comid , reply.replyStatus, reply.rep_usersid,
+  DATE_FORMAT(reply.com_datatime, '%Y年%m月%d日 %H:%i:%s') reptime, users.usersname rep_usersname from reply left join  users on
+  reply.rep_usersid = users.idusers) r on c.id= r.rep_comid where c.com_speciesid=#{com_speciesid}
+  order by c.com_datatime desc;</select>
+</mapper>

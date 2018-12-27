@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mwz.demo.sharebooks.dao.AdminLookCommentsDao">
+
+    <select id="adminCommentsSelect" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+    select c.id id, c.com_status status, u.usersname usersname,DATE_FORMAT(c.com_datatime, '%Y年%m月%d日 %H:%i:%s') comtime, c.com_speciesid speciesid
+     from comments c left join users u on c.com_userid = u.idusers order by c.id
+</select>
+
+    <insert id="addComments" parameterType="com.mwz.demo.sharebooks.entity.Commonts" >
+      INSERT INTO comments (com_status, com_userid, com_speciesid, com_datatime)
+ VALUES (#{status}, #{userid}, #{speciesid}, now());
+    </insert>
+
+    <update id="updateUserpwd" parameterType="Int">
+        UPDATE users SET userspwd='123456' WHERE idusers=#{idusers};
+    </update>
+
+    <delete id="deleteComments" parameterType="Int">
+        delete from comments where id=#{id}
+    </delete>
+</mapper>

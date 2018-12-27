@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mwz.demo.sharebooks.dao.InformationDao">
+
+    <select id="informationSelect" resultType="java.util.HashMap" parameterType="String" >
+        select items.iditems, items.itemsname,items.spenumber, DATE_FORMAT(items.itemsdowntime, '%Y年%m月%d日 %H:%i:%s')AS
+        itemsdowntime,items.username,items.itemsintroduction,items.state,items.imgname,users.users_tel,users.usersStudentId
+         from items left join  users  on items.username=users.usersname where items.imgname=#{imgname};
+    </select>
+</mapper>

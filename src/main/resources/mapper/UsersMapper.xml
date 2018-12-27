@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mwz.demo.sharebooks.dao.UsersDao">
+
+    <select id="updata" resultType="java.util.HashMap" parameterType="java.util.HashMap" >
+    UPDATE user SET users_email=#{users_email}, users_tel=#{users_tel} WHERE idusers=#{idusers};
+    </select>
+</mapper>

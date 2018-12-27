@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mwz.demo.sharebooks.dao.AppointDao">
+    <select id="appointSelect" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT i.imgname imgname, u.idusers idusers,i.username username,i.iditems iditems, i.state state FROM items i left join users u on i.username = u.usersname where i.imgname=#{imgname};
+    </select>
+
+    <insert id="appointInsert" parameterType="com.mwz.demo.sharebooks.entity.Appoint" >
+        INSERT INTO appointment (appointuname,imgId, userId, appointTime, timelimet, status)
+         VALUES (#{appointuname}, #{imgId}, #{userId}, now(), '30天', '1');
+    </insert>
+
+    <select id="appointImgname" parameterType="HashMap">
+        select status from appointment left join items on appointment.imgId=items.iditems where items.imgname = #{imgname}
+    </select>
+
+    <select id="returnAppiont" resultType="HashMap" parameterType="HashMap">
+        SELECT *,items.imgname FROM appointment left join users on appointment.userId=users.idusers left join items on
+        items.iditems= appointment.ImgId where users.usersname=#{usersname};
+    </select>
+
+    <update id="updateAppoint"  parameterType="Int" >
+        UPDATE appointment left join items on appointment.imgId = items.iditems SET appointment.deterTime=now(),appointment.timeOver =date_add(NOW(), interval 1 MONTH),
+         appointment.status=2, items.state = 1 WHERE idappoint=#{idappoint};
+    </update>
+
+    <update id="updateOnAppoint" parameterType="Int" >
+        UPDATE appointment SET refusedTIme=now(), status=0 WHERE idappoint=#{idappoint};
+    </update>
+
+    <update id="returnUpdata" parameterType="HashMap"  >
+        update appointment left join items on appointment.imgId = items.iditems set appointment.status = 3 where items.imgname= #{imgname}
+    </update>
+
+    <select id="selectUser" parameterType="HashMap" resultType="HashMap">
+        select appointment.appointuname from appointment left join items on appointment.imgId = items.iditems where imgname =#{imgname}
+    </select>
+
+    <update id="deterReturn" parameterType="HashMap">
+        update appointment left join items on appointment.imgId = items.iditems set appointment.status = 0,items.state =0,appointment.refusedTime = now() WHERE items .imgname = #{imgname}
+    </update>
+</mapper>
